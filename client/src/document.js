@@ -7,6 +7,7 @@ import { Attributes } from "./ingredients/attributes";
 import { Example, Examples } from "./ingredients/examples";
 import { LinkList } from "./ingredients/link-list";
 import { BrowserCompatibilityTable } from "./ingredients/browser-compatibility-table";
+import { ErrorBoundary } from "./ingredients/error-boundary";
 
 export class Document extends React.Component {
   state = {
@@ -147,57 +148,53 @@ const PROSE_NO_HEADING = ["short_description", "overview"];
 
 function RenderDocumentBody({ doc }) {
   return doc.body.map((section, i) => {
-    if (section.type === "prose") {
-      // Only exceptional few should use the <Prose/> component,
-      // as opposed to <ProseWithHeading/>.
-      if (!section.value.id || PROSE_NO_HEADING.includes(section.value.id)) {
-        return <Prose key={section.value.id} section={section.value} />;
-      } else {
-        return (
-          <ProseWithHeading
-            key={section.value.id}
-            id={section.value.id}
-            section={section.value}
-          />
-        );
-      }
-    } else if (section.type === "interactive_example") {
-      return (
-        <InteractiveExample
-          key={section.value.url}
-          url={section.value.url}
-          height={section.value.height}
-          title={doc.title}
-        />
-      );
-    } else if (section.type === "attributes") {
-      return <Attributes key={`attributes${i}`} attributes={section.value} />;
-    } else if (section.type === "browser_compatibility") {
-      return (
-        <BrowserCompatibilityTable
-          key="browser_compatibility"
-          data={section.value}
-        />
-      );
-    } else if (section.type === "examples") {
-      return <Examples key={`examples${i}`} examples={section.value} />;
-    } else if (section.type === "example") {
-      return <Example key={`example${i}`} example={section.value} />;
-    } else if (section.type === "info_box") {
-      // XXX Unfinished!
-      // https://github.com/mdn/stumptown-content/issues/106
-      console.warn("Don't know how to deal with info_box!");
-      // console.log(section);
-      return null;
-    } else if (section.type === "link_list") {
-      return (
-        <LinkList title={section.value.title} links={section.value.content} />
-      );
-    } else {
-      console.warn(section);
-      throw new Error(`No idea how to handle a '${section.type}' section`);
-    }
+    return (
+      <ErrorBoundary key={i} sectionType={section.type}>
+        <Ingredient doc={doc} section={section} />
+      </ErrorBoundary>
+    );
   });
+}
+
+function Ingredient({ doc, section }) {
+  if (section.type === "prose") {
+    // Only exceptional few should use the <Prose/> component,
+    // as opposed to <ProseWithHeading/>.
+    if (!section.value.id || PROSE_NO_HEADING.includes(section.value.id)) {
+      return <Prose section={section.value} />;
+    } else {
+      return <ProseWithHeading id={section.value.id} section={section.value} />;
+    }
+  } else if (section.type === "interactive_example") {
+    return (
+      <InteractiveExample
+        url={section.value.url}
+        height={section.value.height}
+        title={doc.title}
+      />
+    );
+  } else if (section.type === "attributes") {
+    return <Attributes attributes={section.value} />;
+  } else if (section.type === "browser_compatibility") {
+    return <BrowserCompatibilityTable data={section.value} />;
+  } else if (section.type === "examples") {
+    return <Examples examples={section.value} />;
+  } else if (section.type === "example") {
+    return <Example example={section.value} />;
+  } else if (section.type === "info_box") {
+    // XXX Unfinished!
+    // https://github.com/mdn/stumptown-content/issues/106
+    console.warn("Don't know how to deal with info_box!");
+    // console.log(section);
+    return null;
+  } else if (section.type === "link_list") {
+    return (
+      <LinkList title={section.value.title} links={section.value.content} />
+    );
+  } else {
+    console.warn(section);
+    throw new Error(`No idea how to handle a '${section.type}' section`);
+  }
 }
 
 function Prose({ section }) {
