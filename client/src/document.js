@@ -7,7 +7,8 @@ import { Attributes } from "./ingredients/attributes";
 import { Example, Examples } from "./ingredients/examples";
 import { LinkList } from "./ingredients/link-list";
 import { BrowserCompatibilityTable } from "./ingredients/browser-compatibility-table";
-import { ErrorBoundary } from "./ingredients/error-boundary";
+
+import { IngredientErrorBoundary } from "./error-boundaries/ingredient-error-boundary";
 
 export class Document extends React.Component {
   state = {
@@ -149,9 +150,9 @@ const PROSE_NO_HEADING = ["short_description", "overview"];
 function RenderDocumentBody({ doc }) {
   return doc.body.map((section, i) => {
     return (
-      <ErrorBoundary key={i} sectionType={section.type}>
+      <IngredientErrorBoundary key={i} sectionType={section.type}>
         <Ingredient doc={doc} section={section} />
-      </ErrorBoundary>
+      </IngredientErrorBoundary>
     );
   });
 }

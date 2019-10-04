@@ -7,7 +7,7 @@ import React from "react";
  * this component will show a friendly message
  * to replace that crashed component
  */
-export class ErrorBoundary extends React.Component {
+export class IngredientErrorBoundary extends React.Component {
   state = {
     error: null
   };
@@ -15,20 +15,20 @@ export class ErrorBoundary extends React.Component {
     this.setState({
       error
     });
-    // TODO: Report this error somewhere?
+    // TODO: Report this error to Sentry, https://github.com/mdn/stumptown-renderer/issues/99
   }
   render() {
     if (this.state.error) {
       const { sectionType } = this.props;
       return (
-        <>
+        <div className="ingredient-error-boundary">
           <h2>{getTitle(sectionType)}</h2>
           <p>
             Unfortunately, this {sectionType} section has unhanlded errors and
             cannot be shown.
             {/* TODO: When error reporting is set up, the message should include "We have been notified of this error" or something similar */}
           </p>
-        </>
+        </div>
       );
     }
     return this.props.children;
