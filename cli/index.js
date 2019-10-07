@@ -296,10 +296,6 @@ function run(paths) {
     expandFiles(paths).map(filePath => {
       const output = args.output;
       return accessFile(filePath, fs.constants.R_OK)
-        .catch(err => {
-          console.error(err.toString());
-          process.exit(1);
-        })
         .then(() => {
           return buildHtmlAndJson({
             filePath,
@@ -307,33 +303,48 @@ function run(paths) {
             buildHtml: args["build-html"],
             quiet: args["quiet"]
           });
+        })
+        .catch(ex => {
+          console.error(ex);
+          throw ex;
         });
     })
   ).then(async values => {
     console.log(chalk.green(`Built ${values.length} documents.`));
-    const titles = {};
-    // XXX Support locales!
-    const allTitlesFilepath = path.join(STATIC_ROOT, "titles.json");
-    try {
-      titles.titles = JSON.parse(await readFile(allTitlesFilepath, "utf8"));
-      console.warn(
-        `Updating ${Object.keys(allTitles).length} file ${allTitlesFilepath}`
-      );
-    } catch (ex) {
-      // throw ex;
-      console.warn(`Starting a fresh new ${allTitlesFilepath}`);
-      titles.titles = {};
-    }
+    const titlesByLocale = {};
     values.forEach(built => {
-      titles.titles[built.uri] = built.doc.title;
+      const localeKey = built.uri.split("/")[1];
+      titlesByLocale[localeKey] = titlesByLocale[localeKey] || [];
+      titlesByLocale[localeKey].push(built);
     });
+    Object.entries(titlesByLocale).forEach(async ([locale, localeTitles]) => {
+      const titles = {};
+      const allTitlesFilepath = path.join(STATIC_ROOT, `${locale}/titles.json`);
+      try {
+        titles.titles = JSON.parse(await readFile(allTitlesFilepath, "utf8"))[
+          "titles"
+        ];
+        console.warn(
+          `Updating ${
+            Object.keys(titles.titles).length
+          } file ${allTitlesFilepath}`
+        );
+      } catch (ex) {
+        // throw ex;
+        console.warn(`Starting a fresh new ${allTitlesFilepath}`);
+        titles.titles = {};
+      }
+      localeTitles.forEach(built => {
+        titles.titles[built.uri] = built.doc.title;
+      });
 
-    await writeFile(allTitlesFilepath, JSON.stringify(titles, null, 2));
-    console.log(
-      `${allTitlesFilepath} now contains ${Object.keys(
-        titles.titles
-      ).length.toLocaleString()} documents.`
-    );
+      await writeFile(allTitlesFilepath, JSON.stringify(titles, null, 2));
+      console.log(
+        `${allTitlesFilepath} now contains ${Object.keys(
+          titles.titles
+        ).length.toLocaleString()} documents.`
+      );
+    });
     return values;
   });
 }
@@ -417,5 +428,7 @@ if (args.watch) {
     }
   });
 } else {
-  run(paths);
+  run(paths).catch(() => {
+    process.exitCode = 1;
+  });
 }
