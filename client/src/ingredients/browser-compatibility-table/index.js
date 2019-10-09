@@ -29,8 +29,15 @@ export class BrowserCompatibilityTable extends Component {
     hasFlag: false,
     hasPrefix: false,
     hasNotes: false,
-    legendSet: false
+    legendSet: false,
+    crash: false
   };
+
+  componentDidMount() {
+    this.setState({
+      crash: true
+    });
+  }
 
   gatherPlatformsAndBrowsers(category) {
     let platforms = ["desktop", "mobile"];
@@ -84,6 +91,11 @@ export class BrowserCompatibilityTable extends Component {
       throw new Error(
         "BrowserCompatibilityTable component called with empty data"
       );
+    }
+
+    if (this.state.crash) {
+      // This will crash only in browser
+      throw new Error("I'm crashing");
     }
 
     const [platforms, displayBrowsers] = this.gatherPlatformsAndBrowsers(
