@@ -23,7 +23,7 @@ export class ApplicationErrorBoundary extends React.Component {
     if (this.state.error) {
       return (
         <div className="application-error-boundary">
-          Unfortunately, this application has encountered unhanlded errors and
+          Unfortunately, this application has encountered unhandled error and
           the content cannot be shown.
           {/* TODO: When error reporting is set up, the message should include "We have been notified of this error" or something similar */}
         </div>
