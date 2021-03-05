@@ -100,7 +100,7 @@ jobs:
 
       - name: Install Python poetry
         if: env.GIT_DIFF
-        uses: snok/install-poetry@v1.1.1
+        uses: snok/install-poetry@v1.1.2
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
