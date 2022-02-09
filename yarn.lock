@@ -2216,12 +2216,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@mdn/browser-compat-data@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-3.0.0.tgz#023f7057e75ac26adb3546a4f43450caadcf5ccc"
-  integrity sha512-J2kn2zBbgAvOoHRiPikMnZWJ8qWKrpdlHepoozYbTbwwUGrFXP4opIitH8Dn68e36nUrhUu/NL4lGq7ZOqh+xg==
-  dependencies:
-    extend "3.0.2"
+"@mdn/browser-compat-data@4.1.7":
+  version "4.1.7"
+  resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-4.1.7.tgz#2dfbf667e69ee7bb90b807b07c353b2d12f21708"
+  integrity sha512-rOxg9jU9L3PrwhHI5DEqKOARt/gCXku/j3RvaEfP8hxeMI6bh0Ov1TqcgoajA/D01PXKTuLfEYvF3kWuheRB7w==
 
 "@mdn/dinocons@^0.1.3":
   version "0.1.3"
@@ -8137,7 +8135,7 @@ extend-shallow@^3.0.2:
     assign-symbols "^1.0.0"
     is-extendable "^1.0.1"
 
-extend@3.0.2, extend@^3.0.0, extend@^3.0.2, extend@~3.0.2:
+extend@^3.0.0, extend@^3.0.2, extend@~3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
   integrity sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==
