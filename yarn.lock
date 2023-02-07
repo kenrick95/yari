@@ -1891,6 +1891,11 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
+"@remix-run/router@1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.3.2.tgz#58cd2bd25df2acc16c628e1b6f6150ea6c7455bc"
+  integrity sha512-t54ONhl/h75X94SWsHGQ4G/ZrCEguKSRQr7DrjTciJXW0YU1QhlwYeycvK5JgkzlxmvrK7wq1NB/PLtHxoiDcA==
+
 "@rollup/plugin-node-resolve@^7.1.1":
   version "7.1.3"
   resolved "https://registry.npmjs.org/@rollup/plugin-node-resolve/-/plugin-node-resolve-7.1.3.tgz"
@@ -13303,17 +13308,13 @@ react-refresh@^0.8.3:
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.8.3.tgz"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
 
-react-router-dom@6.0.0-beta.2:
-  version "6.0.0-beta.2"
-  resolved "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.0.0-beta.2.tgz"
-  integrity sha512-ZOauHu+clEYCRsW77F21/q6Ou5zmJvL6FvKsbmvO+J+4e7OXglh0VJy8yph8xoz20Ak5UYDExubE6n5+2QP1pw==
+react-router-dom@6.8.1:
+  version "6.8.1"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.8.1.tgz#7e136b67d9866f55999e9a8482c7008e3c575ac9"
+  integrity sha512-67EXNfkQgf34P7+PSb6VlBuaacGhkKn3kpE51+P6zYSG2kiRoumXEL6e27zTa9+PGF2MNXbgIUHTVlleLbIcHQ==
   dependencies:
-    react-router "6.0.0-beta.2"
-
-react-router@6.0.0-beta.2:
-  version "6.0.0-beta.2"
-  resolved "https://registry.npmjs.org/react-router/-/react-router-6.0.0-beta.2.tgz"
-  integrity sha512-oyVEfpVT9VbClWaZNNShfprq8HA5rSLfo/ZsXFT08/6mldM6onHzqr6Lc1ybBYEB7/c+rr1VOA99as7hEoAoXw==
+    "@remix-run/router" "1.3.2"
+    react-router "6.8.1"
 
 react-router@6.2.2:
   version "6.2.2"
@@ -13321,6 +13322,13 @@ react-router@6.2.2:
   integrity sha512-/MbxyLzd7Q7amp4gDOGaYvXwhEojkJD5BtExkuKmj39VEE0m3l/zipf6h2WIB2jyAO0lI6NGETh4RDcktRm4AQ==
   dependencies:
     history "^5.2.0"
+
+react-router@6.8.1:
+  version "6.8.1"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.8.1.tgz#e362caf93958a747c649be1b47cd505cf28ca63e"
+  integrity sha512-Jgi8BzAJQ8MkPt8ipXnR73rnD7EmZ0HFFb7jdQU24TynGW1Ooqin2KVDN9voSC+7xhqbbCd2cjGUepb6RObnyg==
+  dependencies:
+    "@remix-run/router" "1.3.2"
 
 react-scripts@4.0.3:
   version "4.0.3"
